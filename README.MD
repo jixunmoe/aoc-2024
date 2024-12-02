@@ -10,7 +10,7 @@ Solutions for the [Advent of Code 2024](https://adventofcode.com/2024) puzzles.
 | 🚧     | To be done |
 
 - [Day 1](./aoc-2024/day-01/README.MD) ✨
-- [Day 2](./aoc-2024/day-02/README.MD) 🚧
+- [Day 2](./aoc-2024/day-02/README.MD) ✨
 - [Day 3](./aoc-2024/day-03/README.MD) 🚧
 - [Day 4](./aoc-2024/day-04/README.MD) 🚧
 - [Day 5](./aoc-2024/day-05/README.MD) 🚧
