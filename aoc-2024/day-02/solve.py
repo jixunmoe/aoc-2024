@@ -13,7 +13,7 @@ def is_safe_report(report: List[int]) -> bool:
     return pos_seq or neg_seq
 
 def is_safe_report_damp(report: List[int]) -> bool:
-    # dump but works
+    # dumb brute force but works
     for i in range(len(report)):
         temp = report.copy()
         temp.pop(i)
