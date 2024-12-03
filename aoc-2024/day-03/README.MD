@@ -1,6 +1,6 @@
 # Day 3: Mull It Over
 
-[[^ up]](../../README.MD) [[< prev]](../day-02/README.MD) [[next >]](../day-04/README.MD) <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.MD) [[< prev]](../day-02/README.MD) [[next >]](../day-04/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
