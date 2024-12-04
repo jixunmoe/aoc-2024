@@ -1,4 +1,4 @@
-# Day 4: TBD
+# Day 4: Ceres Search
 
 [[^ up]](../../README.MD) [[< prev]](../day-03/README.MD) [[next >]](../day-05/README.MD) [[solution ✨]](./solve.py)
 
