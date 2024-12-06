@@ -105,10 +105,9 @@ class Game:
 
     def solve_part2(self):
         loop_option = 0
-        w, h = self.size
-        for x in tqdm(range(w)):
-            for y in range(h):
-                loop_option += self.check_loop_at(pos=(x, y))
+        valid_points = {point for (point, _) in self.get_exit_path(self.board)}
+        for pos in tqdm(valid_points):
+            loop_option += self.check_loop_at(pos)
         return loop_option
 
     def check_loop_at(self, pos: tuple[int, int]):
