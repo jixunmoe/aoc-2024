@@ -13,8 +13,8 @@
 
 ## Part 2
 
-- Iterate the board
-  - Place an extra "wall" on the board, if that pos is not already wall nor player.
+- Use the points found in previous part
+  - Place an extra "wall" on a point from the path.
   - See if the player can get out of the board.
   - Count the number of positions.
 

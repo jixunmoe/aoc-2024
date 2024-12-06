@@ -122,11 +122,11 @@ class Game:
         return 1 if exit_path is None else 0
 
     def solve_part2_multithread(self, threads: int = 4):
+        valid_points = {point for (point, _) in self.get_exit_path(self.board)}
         loop_option = 0
-        w, h = self.size
 
         with Pool(threads) as pool:
-            for result in tqdm(pool.imap_unordered(self.check_loop_at, self.iterate_board_pos()), total=w * h):
+            for result in tqdm(pool.imap_unordered(self.check_loop_at, valid_points), total=len(valid_points)):
                 loop_option += result
         return loop_option
 
