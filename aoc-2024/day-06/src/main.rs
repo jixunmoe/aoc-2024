@@ -6,6 +6,7 @@ const DIR_LEFT: u8 = b'<';
 const DIR_RIGHT: u8 = b'>';
 const WALL: u8 = b'#';
 const EMPTY: u8 = b'.';
+const EXIT: u8 = 0;
 
 const MAX_WIDTH: usize = 256;
 const MAX_HEIGHT: usize = 256;
@@ -37,8 +38,6 @@ fn rotate_right(dir: u8) -> u8 {
 
 struct Game {
     board: [[u8; MAX_WIDTH]; MAX_HEIGHT],
-    width: usize,
-    height: usize,
     player_x: usize,
     player_y: usize,
     player_dir: u8,
@@ -54,8 +53,6 @@ impl Game {
     pub fn new() -> Game {
         Game {
             board: [[0; MAX_WIDTH]; MAX_HEIGHT],
-            width: 0,
-            height: 0,
             player_x: 0,
             player_y: 0,
             player_dir: 0,
@@ -63,8 +60,7 @@ impl Game {
     }
 
     pub fn load(&mut self, data: &str) {
-        let rows = data.split('\n');
-        for (y, line) in rows.enumerate() {
+        for (y, line) in data.split('\n').enumerate() {
             for (x, &c) in line.as_bytes().iter().enumerate() {
                 let is_player = c == DIR_UP || c == DIR_DOWN || c == DIR_LEFT || c == DIR_RIGHT;
                 if is_player {
@@ -76,8 +72,6 @@ impl Game {
                     self.board[y][x] = c;
                 }
             }
-            self.height = y + 1;
-            self.width = line.len();
         }
     }
 
@@ -106,12 +100,14 @@ impl Game {
             _ => panic!("Invalid direction"),
         };
 
-        if x >= self.width || y >= self.height {
-            WalkResult::Exit
-        } else if board[y][x] == WALL {
-            WalkResult::HitWall
-        } else {
-            WalkResult::NewPos((x, y))
+        if x >= MAX_WIDTH || y >= MAX_HEIGHT {
+            return WalkResult::Exit;
+        }
+
+        match board[y][x] {
+            EXIT => WalkResult::Exit,
+            WALL => WalkResult::HitWall,
+            _ => WalkResult::NewPos((x, y)),
         }
     }
 
@@ -148,31 +144,32 @@ impl Game {
 
     pub fn solve(&self) -> (usize, usize) {
         let mut visited = [[0u8; MAX_WIDTH]; MAX_HEIGHT];
-        self.can_exit(&self.board, &mut visited);
-        let p1_answer = visited.iter().fold(0, |acc, row| {
-            row.iter()
-                .fold(acc, |acc, &cell| acc + if cell != 0 { 1 } else { 0 })
-        });
+        self.can_exit(&self.board, &mut visited); // discard the result
 
-        visited[self.player_y][self.player_x] = 0xff;
+        // don't bother with the player position.
+        visited[self.player_y][self.player_x] = 0;
 
-        let mut p2 = 0;
+        let mut p1_answer = 1; // include the initial player position
+        let mut p2_answer = 0;
         for (y, row) in visited.iter().enumerate() {
             for (x, &cell) in row.iter().enumerate() {
-                if cell == 0 || cell == 0xff {
+                // never visited, skip
+                if cell == 0 {
                     continue;
                 }
+
+                p1_answer += 1;
 
                 let mut board_copy = self.board;
                 board_copy[y][x] = WALL;
                 let mut tmp = [[0u8; MAX_WIDTH]; MAX_HEIGHT];
                 if !self.can_exit(&board_copy, &mut tmp) {
-                    p2 += 1;
+                    p2_answer += 1;
                 }
             }
         }
 
-        (p1_answer, p2)
+        (p1_answer, p2_answer)
     }
 }
 
