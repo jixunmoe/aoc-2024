@@ -1,54 +1,60 @@
-= AoC 2024
+= AoC Solutions
 
-Solutions for the https://adventofcode.com/2024[Advent of Code 2024] puzzles.
+Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 
 == Contents
 
+.Legends
+[%collapsible]
+====
+
+[cols="1,4", options="header"]
 |===
 | legend | meaning
 
 | ✨      | Completed
 | 🚧     | To be done
 |===
+====
 
 .AoC 2024
 [%collapsible%open]
 ====
-
-[cols="7*^",orientation=landscape]
+[cols="4*^", options="header"]
 |===
-| link:aoc-2024/day-01/README.MD[Day 1] ✨
-| link:aoc-2024/day-02/README.MD[Day 2] ✨
-| link:aoc-2024/day-03/README.MD[Day 3] ✨
-| link:aoc-2024/day-04/README.MD[Day 4] ✨
+| W1 | W2 | W3 | W4
 
-| link:aoc-2024/day-05/README.MD[Day 5] ✨
-| link:aoc-2024/day-06/README.MD[Day 6] ✨
-| link:aoc-2024/day-07/README.MD[Day 7] ✨
-| link:aoc-2024/day-08/README.MD[Day 8] 🚧
+| link:aoc-2024/day-01/README.MD[Day 1 ✨]
+| link:aoc-2024/day-08/README.MD[Day 8 🚧]
+| link:aoc-2024/day-15/README.MD[Day 15 🚧]
+| link:aoc-2024/day-22/README.MD[Day 22 🚧]
 
-| link:aoc-2024/day-09/README.MD[Day 9] 🚧
-| link:aoc-2024/day-10/README.MD[Day 10] 🚧
-| link:aoc-2024/day-11/README.MD[Day 11] 🚧
-| link:aoc-2024/day-12/README.MD[Day 12] 🚧
+| link:aoc-2024/day-02/README.MD[Day 2 ✨]
+| link:aoc-2024/day-09/README.MD[Day 9 🚧]
+| link:aoc-2024/day-16/README.MD[Day 16 🚧]
+| link:aoc-2024/day-23/README.MD[Day 23 🚧]
 
-| link:aoc-2024/day-13/README.MD[Day 13] 🚧
-| link:aoc-2024/day-14/README.MD[Day 14] 🚧
-| link:aoc-2024/day-15/README.MD[Day 15] 🚧
-| link:aoc-2024/day-16/README.MD[Day 16] 🚧
+| link:aoc-2024/day-03/README.MD[Day 3 ✨]
+| link:aoc-2024/day-10/README.MD[Day 10 🚧]
+| link:aoc-2024/day-17/README.MD[Day 17 🚧]
+| link:aoc-2024/day-24/README.MD[Day 24 🚧]
 
-| link:aoc-2024/day-17/README.MD[Day 17] 🚧
-| link:aoc-2024/day-18/README.MD[Day 18] 🚧
-| link:aoc-2024/day-19/README.MD[Day 19] 🚧
-| link:aoc-2024/day-20/README.MD[Day 20] 🚧
+| link:aoc-2024/day-04/README.MD[Day 4 ✨]
+| link:aoc-2024/day-11/README.MD[Day 11 🚧]
+| link:aoc-2024/day-18/README.MD[Day 18 🚧]
+| link:aoc-2024/day-25/README.MD[Day 25 🚧]
 
-| link:aoc-2024/day-21/README.MD[Day 21] 🚧
-| link:aoc-2024/day-22/README.MD[Day 22] 🚧
-| link:aoc-2024/day-23/README.MD[Day 23] 🚧
-| link:aoc-2024/day-24/README.MD[Day 24] 🚧
+| link:aoc-2024/day-05/README.MD[Day 5 ✨]
+| link:aoc-2024/day-12/README.MD[Day 12 🚧]
+| link:aoc-2024/day-19/README.MD[Day 19 🚧]
+.3+.^|🎄
 
-4+| link:aoc-2024/day-25/README.MD[Day 25] 🚧
+| link:aoc-2024/day-06/README.MD[Day 6 ✨]
+| link:aoc-2024/day-13/README.MD[Day 13 🚧]
+| link:aoc-2024/day-20/README.MD[Day 20 🚧]
+
+| link:aoc-2024/day-07/README.MD[Day 7 ✨]
+| link:aoc-2024/day-14/README.MD[Day 14 🚧]
+| link:aoc-2024/day-21/README.MD[Day 21 🚧]
 |===
-
 ====
-
