@@ -2,37 +2,29 @@ import argparse
 import itertools
 from multiprocessing import Pool
 from os import cpu_count
+from operator import add, mul
 
 from tqdm import tqdm
 
 ops_def = {
-    '+': lambda x, y: x + y,
-    '*': lambda x, y: x * y,
+    '+': add,
+    '*': mul,
     '||': lambda x, y: int(f'{x}{y}'),
 }
 
 
 class Game:
-    first: int
-    items: list[int]
-    line: str
-    result: int
+    result: int # expected result
+    first: int # first number
+    items: list[int] # rest of the numbers
 
     def __init__(self, line: str):
-        self.line = line
         (result, items) = line.split(': ')
         self.result = int(result)
         self.first, *self.items = [int(x) for x in items.split(' ')]
 
-    def __str__(self):
-        return f'{self.result}: {self.items}'
-
-    def __repr__(self):
-        return str(self)
-
     def solve(self, allowed_ops: tuple[str, ...]):
-        ops_len = len(self.items)
-        for ops in itertools.product(*([allowed_ops] * ops_len)):
+        for ops in itertools.product(allowed_ops, repeat=len(self.items)):
             if self.calc(ops) == self.result:
                 return self.result
 
@@ -53,8 +45,8 @@ def solve_line(line: str):
     return r1, r2
 
 
-def solve(input: str, threads: int):
-    with open(input, "r", encoding='utf-8') as file:
+def solve(input_file: str, threads: int):
+    with open(input_file, "r", encoding='utf-8') as file:
         input_text = file.read().strip()
 
     lines = input_text.splitlines()
