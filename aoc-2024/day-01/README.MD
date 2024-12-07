@@ -1,6 +1,6 @@
 # Day 1: Historian Hysteria
 
-[[^ up]](../../README.MD) [< prev] [[next >]](../day-02/README.MD) [[solution ✨]](solve.py)
+[[^ up]](../../README.asciidoc) [< prev] [[next >]](../day-02/README.MD) [[solution ✨]](solve.py)
 
 <!-- article begin -->
 
@@ -20,5 +20,5 @@
 
 ---
 
-* Source: https://adventofcode.com/2024/day/1
-* Puzzle input: https://adventofcode.com/2024/day/1/input
+* Puzzle: https://adventofcode.com/2024/day/1
+* Input: https://adventofcode.com/2024/day/1/input

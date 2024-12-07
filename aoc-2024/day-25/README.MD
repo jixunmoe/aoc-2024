@@ -1,6 +1,6 @@
 # Day 25: TBD
 
-[[^ up]](../../README.MD) [[< prev]](../day-24/README.MD) [next >] <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.asciidoc) [[< prev]](../day-24/README.MD) [next >] <!-- [[solution ✨]](./solve.py) -->
 
 <!-- article begin -->
 
@@ -8,5 +8,6 @@
 
 ---
 
-Source: https://adventofcode.com/2024/day/25
+* Puzzle: https://adventofcode.com/2024/day/25
+* Input: https://adventofcode.com/2024/day/25/input
 

@@ -19,7 +19,7 @@ for i in $(seq 25); do
     cat > "aoc-2024/$day/README.MD" <<EOF
 # Day $i: TBD
 
-[[^ up]](../../README.MD) $prev $next <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.asciidoc) $prev $next <!-- [[solution ✨]](./solve.py) -->
 
 <!-- article begin -->
 
@@ -27,12 +27,9 @@ for i in $(seq 25); do
 
 ---
 
-Source: https://adventofcode.com/2024/day/$i
+* Puzzle: https://adventofcode.com/2024/day/$i
+* Input: https://adventofcode.com/2024/day/$i/input
 
 EOF
   fi
-
-  toc="$toc- [Day $i](./aoc-2024/$day/README.MD) 🚧\n"
 done
-
-echo -e $toc >> README.MD

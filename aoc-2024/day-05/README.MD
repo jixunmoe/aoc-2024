@@ -1,6 +1,6 @@
 # Day 5: Print Queue
 
-[[^ up]](../../README.MD) [[< prev]](../day-04/README.MD) [[next >]](../day-06/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-04/README.MD) [[next >]](../day-06/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -26,5 +26,5 @@
 
 ---
 
-* Source: https://adventofcode.com/2024/day/5
-* Puzzle input: https://adventofcode.com/2024/day/5/input
+* Puzzle: https://adventofcode.com/2024/day/5
+* Input: https://adventofcode.com/2024/day/5/input
