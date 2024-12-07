@@ -16,5 +16,6 @@ Same idea, but check for word "MAS" or "SAM" at diagonal directions.
 
 ---
 
-Source: https://adventofcode.com/2024/day/4
+* Source: https://adventofcode.com/2024/day/4
+* Puzzle input: https://adventofcode.com/2024/day/4/input
 

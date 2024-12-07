@@ -28,5 +28,5 @@ Iterate
 
 ---
 
-Source: https://adventofcode.com/2024/day/6
-
+* Source: https://adventofcode.com/2024/day/6
+* Puzzle input: https://adventofcode.com/2024/day/6/input

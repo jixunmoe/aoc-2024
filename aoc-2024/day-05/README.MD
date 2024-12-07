@@ -26,5 +26,5 @@
 
 ---
 
-Source: https://adventofcode.com/2024/day/5
-
+* Source: https://adventofcode.com/2024/day/5
+* Puzzle input: https://adventofcode.com/2024/day/5/input

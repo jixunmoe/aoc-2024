@@ -18,5 +18,5 @@
 
 ---
 
-Source: https://adventofcode.com/2024/day/7
-
+* Source: https://adventofcode.com/2024/day/7
+* Puzzle input: https://adventofcode.com/2024/day/7/input
