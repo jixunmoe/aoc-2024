@@ -15,7 +15,7 @@ Solutions for the [Advent of Code 2024](https://adventofcode.com/2024) puzzles.
 - [Day 4](./aoc-2024/day-04/README.MD) ✨
 - [Day 5](./aoc-2024/day-05/README.MD) ✨
 - [Day 6](./aoc-2024/day-06/README.MD) ✨
-- [Day 7](./aoc-2024/day-07/README.MD) 🚧
+- [Day 7](./aoc-2024/day-07/README.MD) ✨
 - [Day 8](./aoc-2024/day-08/README.MD) 🚧
 - [Day 9](./aoc-2024/day-09/README.MD) 🚧
 - [Day 10](./aoc-2024/day-10/README.MD) 🚧
