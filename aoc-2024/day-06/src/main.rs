@@ -45,7 +45,7 @@ struct Game {
 
 enum WalkResult {
     HitWall,
-    NewPos((usize, usize)),
+    NewPos(usize, usize),
     Exit,
 }
 
@@ -107,7 +107,7 @@ impl Game {
         match board[y][x] {
             EXIT => WalkResult::Exit,
             WALL => WalkResult::HitWall,
-            _ => WalkResult::NewPos((x, y)),
+            _ => WalkResult::NewPos(x, y),
         }
     }
 
@@ -127,8 +127,8 @@ impl Game {
                 WalkResult::HitWall => {
                     dir = rotate_right(dir);
                 }
-                WalkResult::NewPos(new_pos) => {
-                    pos = new_pos;
+                WalkResult::NewPos(x, y) => {
+                    pos = (x, y);
                 }
                 WalkResult::Exit => return true,
             }
@@ -175,15 +175,11 @@ impl Game {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let input_file = if args.len() > 1 {
-        &args[1]
-    } else {
-        "sample.txt"
-    };
+    let input_file = args.get(1).unwrap_or("sample.txt".into());
 
-    let sample = fs::read_to_string(input_file).expect("Cannot read input file");
+    let input = fs::read_to_string(input_file).expect("Cannot read input file");
     let mut game = Game::new();
-    game.load(&sample);
+    game.load(input.trim());
     let (p1, p2) = game.solve();
     println!("Part 1: {}", p1);
     println!("Part 2: {}", p2);
