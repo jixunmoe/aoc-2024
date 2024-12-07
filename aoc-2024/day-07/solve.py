@@ -13,17 +13,16 @@ ops_def = {
 
 
 class Game:
-    solved: bool
+    first: int
     items: list[int]
     line: str
     result: int
 
     def __init__(self, line: str):
-        self.solved = False
         self.line = line
         (result, items) = line.split(': ')
         self.result = int(result)
-        self.items = [int(x) for x in items.split(' ')]
+        self.first, *self.items = [int(x) for x in items.split(' ')]
 
     def __str__(self):
         return f'{self.result}: {self.items}'
@@ -32,21 +31,16 @@ class Game:
         return str(self)
 
     def solve(self, allowed_ops: tuple[str, ...]):
-        if self.solved:
-            return self.result
-
-        ops_len = len(self.items) - 1
+        ops_len = len(self.items)
         for ops in itertools.product(*([allowed_ops] * ops_len)):
-            if self.calc(ops, self.items) == self.result:
-                self.solved = True
+            if self.calc(ops) == self.result:
                 return self.result
 
         return 0
 
-    @staticmethod
-    def calc(ops: tuple[str, ...], items: list[int]):
-        result = items[0]
-        for (op, item) in zip(ops, items[1:]):
+    def calc(self, ops: tuple[str, ...]):
+        result = self.first
+        for (op, item) in zip(ops, self.items):
             result = ops_def[op](result, item)
         return result
 
@@ -54,7 +48,8 @@ class Game:
 def solve_line(line: str):
     game = Game(line)
     r1 = game.solve(('+', '*'))
-    r2 = game.solve(('+', '*', '||'))
+    # skip check if r1 already found an answer
+    r2 = r1 or game.solve(('+', '*', '||'))
     return r1, r2
 
 
