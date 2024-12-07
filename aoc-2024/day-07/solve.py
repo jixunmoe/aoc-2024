@@ -1,5 +1,9 @@
 import argparse
 import itertools
+from multiprocessing import Pool
+from os import cpu_count
+
+from tqdm import tqdm
 
 ops_def = {
     '+': lambda x, y: x + y,
@@ -9,11 +13,13 @@ ops_def = {
 
 
 class Game:
+    solved: bool
     items: list[int]
     line: str
     result: int
 
     def __init__(self, line: str):
+        self.solved = False
         self.line = line
         (result, items) = line.split(': ')
         self.result = int(result)
@@ -26,12 +32,16 @@ class Game:
         return str(self)
 
     def solve(self, allowed_ops: tuple[str, ...]):
+        if self.solved:
+            return self.result
+
         ops_len = len(self.items) - 1
         for ops in itertools.product(*([allowed_ops] * ops_len)):
             if self.calc(ops, self.items) == self.result:
-                return itertools.chain.from_iterable(zip(self.items, ops + ('',)))
+                self.solved = True
+                return self.result
 
-        return None
+        return 0
 
     @staticmethod
     def calc(ops: tuple[str, ...], items: list[int]):
@@ -41,23 +51,36 @@ class Game:
         return result
 
 
-def solve(input: str, verbose: bool):
+def solve_line(line: str):
+    game = Game(line)
+    r1 = game.solve(('+', '*'))
+    r2 = game.solve(('+', '*', '||'))
+    return r1, r2
+
+
+def solve(input: str, threads: int):
     with open(input, "r", encoding='utf-8') as file:
         input_text = file.read().strip()
 
-    games = [Game(line) for line in input_text.splitlines()]
-    p1 = sum([game.result if game.solve(('+', '*')) is not None else 0 for game in games])
-    print(p1)
-    p2 = sum([game.result if game.solve(('+', '*', '||')) is not None else 0 for game in games])
-    print(p2)
+    lines = input_text.splitlines()
+
+    p2 = 0
+    p1 = 0
+    with Pool(threads) as pool:
+        for (r1, r2) in tqdm(pool.imap_unordered(solve_line, lines), total=len(lines)):
+            p1 += r1
+            p2 += r2
+
+    print(f'Part 1: {p1}')
+    print(f'Part 2: {p2}')
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("input", nargs="?", default="sample.txt")
-    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-t", "--threads", type=int, default=max(cpu_count() - 1, 1))
     args = parser.parse_args()
-    solve(args.input, args.verbose)
+    solve(args.input, args.threads)
 
 
 if __name__ == "__main__":
