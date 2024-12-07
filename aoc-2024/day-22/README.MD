@@ -1,6 +1,6 @@
 # Day 22: TBD
 
-[[^ up]](../../README.MD) [[< prev]](../day-21/README.MD) [[next >]](../day-23/README.MD) <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.asciidoc) [[< prev]](../day-21/README.MD) [[next >]](../day-23/README.MD) <!-- [[solution ✨]](./solve.py) -->
 
 <!-- article begin -->
 
@@ -8,5 +8,6 @@
 
 ---
 
-Source: https://adventofcode.com/2024/day/22
+* Puzzle: https://adventofcode.com/2024/day/22
+* Input: https://adventofcode.com/2024/day/22/input
 

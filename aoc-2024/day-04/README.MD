@@ -1,6 +1,6 @@
 # Day 4: Ceres Search
 
-[[^ up]](../../README.MD) [[< prev]](../day-03/README.MD) [[next >]](../day-05/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-03/README.MD) [[next >]](../day-05/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -16,6 +16,5 @@ Same idea, but check for word "MAS" or "SAM" at diagonal directions.
 
 ---
 
-* Source: https://adventofcode.com/2024/day/4
-* Puzzle input: https://adventofcode.com/2024/day/4/input
-
+* Puzzle: https://adventofcode.com/2024/day/4
+* Input: https://adventofcode.com/2024/day/4/input

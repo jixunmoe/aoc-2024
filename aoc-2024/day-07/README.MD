@@ -1,6 +1,6 @@
 # Day 7: Bridge Repair
 
-[[^ up]](../../README.MD) [[< prev]](../day-06/README.MD) [[next >]](../day-08/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-06/README.MD) [[next >]](../day-08/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -18,5 +18,5 @@
 
 ---
 
-* Source: https://adventofcode.com/2024/day/7
-* Puzzle input: https://adventofcode.com/2024/day/7/input
+* Puzzle: https://adventofcode.com/2024/day/7
+* Input: https://adventofcode.com/2024/day/7/input

@@ -1,6 +1,6 @@
 # Day 6: Guard Gallivant
 
-[[^ up]](../../README.MD) [[< prev]](../day-05/README.MD) [[next >]](../day-07/README.MD) [[solution ✨]](./solve.py) [[solution 🦀]](./src/main.rs)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-05/README.MD) [[next >]](../day-07/README.MD) [[solution ✨]](./solve.py) [[solution 🦀]](./src/main.rs)
 
 <!-- article begin -->
 
@@ -28,5 +28,5 @@ Iterate
 
 ---
 
-* Source: https://adventofcode.com/2024/day/6
-* Puzzle input: https://adventofcode.com/2024/day/6/input
+* Puzzle: https://adventofcode.com/2024/day/6
+* Input: https://adventofcode.com/2024/day/6/input

@@ -1,6 +1,6 @@
 # Day 2: Red-Nosed Reports
 
-[[^ up]](../../README.MD) [[< prev]](../day-01/README.MD) [[next >]](../day-03/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-01/README.MD) [[next >]](../day-03/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -20,5 +20,5 @@
 
 ---
 
-* Source: https://adventofcode.com/2024/day/2
-* Puzzle input: https://adventofcode.com/2024/day/2/input
+* Puzzle: https://adventofcode.com/2024/day/2
+* Input: https://adventofcode.com/2024/day/2/input

@@ -1,6 +1,6 @@
 # Day 3: Mull It Over
 
-[[^ up]](../../README.MD) [[< prev]](../day-02/README.MD) [[next >]](../day-04/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-02/README.MD) [[next >]](../day-04/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -33,5 +33,5 @@ Iterate the results, handle each cases, and add the product if enabled.
 
 ---
 
-* Source: https://adventofcode.com/2024/day/3
-* Puzzle input: https://adventofcode.com/2024/day/3/input
+* Puzzle: https://adventofcode.com/2024/day/3
+* Input: https://adventofcode.com/2024/day/3/input
