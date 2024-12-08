@@ -25,7 +25,7 @@ Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 | W1 | W2 | W3 | W4
 
 | link:aoc-2024/day-01/README.MD[Day 1 ✨]
-| link:aoc-2024/day-08/README.MD[Day 8 🚧]
+| link:aoc-2024/day-08/README.MD[Day 8 ✨]
 | link:aoc-2024/day-15/README.MD[Day 15 🚧]
 | link:aoc-2024/day-22/README.MD[Day 22 🚧]
 
