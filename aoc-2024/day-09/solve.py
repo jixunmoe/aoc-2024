@@ -6,6 +6,7 @@ EMPTY = -1
 class Disk:
     data: list[int] = []
     pos_data: list[tuple[int, int]] = []
+    free_data: list[tuple[int, int]] = []
 
     def __init__(self, disk_map: str):
         self.data = []
@@ -18,6 +19,7 @@ class Disk:
                 self.data += [block_id] * size
                 block_id += 1
             else:
+                self.free_data.append((len(self.data), size))
                 self.data += [EMPTY] * size
         self.top_block_id = block_id
 
@@ -37,28 +39,28 @@ class Disk:
             result[j] = EMPTY
         return result
 
-    def compact(self):
-        result = self.data.copy()
+    def compact_and_checksum(self):
+        pos_data = self.pos_data.copy()
+        free_data = self.free_data.copy()
 
-        block_id = self.top_block_id
-        while block_id > 0:
-            block_id -= 1  # subtract 1 first
+        # The free space does not merge automatically, and we don't bother with the free space
+        #   after current position, so we don't need to worry about merging empty spaces.
+        for (blk_id, (blk_idx, blk_size)) in reversed(list(enumerate(pos_data))):
+            for (j, (free_idx, free_size)) in enumerate(free_data):
+                if free_idx >= blk_idx: break
 
-            blk_idx, blk_len = self.pos_data[block_id]
-            continues_free = 0
-            for i in range(blk_idx):
-                if result[i] == EMPTY:
-                    continues_free += 1
-                else:
-                    continues_free = 0
-
-                if continues_free >= blk_len:
-                    # move block
-                    for j in range(blk_len):
-                        result[i - j] = block_id
-                        result[blk_idx + j] = EMPTY
+                if free_size >= blk_size:
+                    pos_data[blk_id] = (free_idx, blk_size)
+                    free_data[j] = (free_idx + blk_size, free_size - blk_size)
                     break
-        return result
+
+        # Implement the checksum over the compacted disk
+        checksum = 0
+        for (blk_id, (blk_idx, blk_size)) in enumerate(pos_data):
+            for i in range(blk_size):
+                checksum += blk_id * blk_idx
+                blk_idx += 1
+        return checksum
 
     @staticmethod
     def checksum(data: list[int]):
@@ -74,7 +76,7 @@ def solve(input_path, verbose):
     p1 = disk.checksum(disk.compact_disk_p1())
     print(f'p1 = {p1}')
 
-    p2 = disk.checksum(disk.compact())
+    p2 = disk.compact_and_checksum()
     print(f'p2 = {p2}')
 
 
