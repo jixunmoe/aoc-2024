@@ -19,7 +19,16 @@
   - If found, swap both blocks from left (free spot) and right (block with content)
 - Repeat until all blocks are sorted.
 
-※ Performance: cpp (~0.2s) vs Python (~7.1s).
+Performance improvement:
+
+- Since we only move blocks to the left, we can safely discard "free space" after current block.
+- That means, we can just keep track of the free block and decrease its size, without worry about merging them.
+- Now we can iterate by block-of-spaces, instead of each individual space.
+
+※ Performance:
+
+- v1: cpp (~0.2s) vs Python (~7.1s).
+- v2: cpp (0.013s) vs Python (0.940s).
 
 I have a feeling this might be dynamic programming problem, but I'm not good at it.
 
