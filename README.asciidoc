@@ -35,7 +35,7 @@ Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 | link:aoc-2024/day-23/README.MD[Day 23 🚧]
 
 | link:aoc-2024/day-03/README.MD[Day 3 ✨]
-| link:aoc-2024/day-10/README.MD[Day 10 🚧]
+| link:aoc-2024/day-10/README.MD[Day 10 ✨]
 | link:aoc-2024/day-17/README.MD[Day 17 🚧]
 | link:aoc-2024/day-24/README.MD[Day 24 🚧]
 
