@@ -20,6 +20,8 @@
   - One to track unique horizontal lines and one for unique vertical lines.
   - Increment corresponding line.
 - Scan for board for consecutive value of `1`s.
+- Scan for diagonal values of current region (where lines meet like ➕)
+  - Increment sides by `2` for each of those.
 - Find the sum of `sides * area`.
 
 
