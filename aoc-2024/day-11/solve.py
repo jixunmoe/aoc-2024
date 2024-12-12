@@ -35,7 +35,7 @@ def solve(input_path, verbose):
     puzzle = list(map(int, input_text.split(' ')))
 
     for (i, fetch_result) in zip(range(1, 75 + 1), blink(puzzle)):
-        match i + 1:
+        match i:
             case 25:
                 print(f'p1: {fetch_result()}')
             case 75:
