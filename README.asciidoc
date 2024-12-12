@@ -40,7 +40,7 @@ Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 | link:aoc-2024/day-24/README.MD[Day 24 🚧]
 
 | link:aoc-2024/day-04/README.MD[Day 4 ✨]
-| link:aoc-2024/day-11/README.MD[Day 11 🚧]
+| link:aoc-2024/day-11/README.MD[Day 11 ✨]
 | link:aoc-2024/day-18/README.MD[Day 18 🚧]
 | link:aoc-2024/day-25/README.MD[Day 25 🚧]
 
