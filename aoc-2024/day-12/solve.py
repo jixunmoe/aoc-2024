@@ -1,10 +1,8 @@
 import argparse
-from itertools import chain, combinations
-import re
-from typing import Tuple, Any
+from itertools import combinations
 
 import numpy as np
-from numpy import ndarray, dtype, float64
+from numpy import ndarray
 
 
 def count_lines(data: ndarray[tuple[int, int], np.uint8]):
@@ -18,7 +16,6 @@ def count_lines(data: ndarray[tuple[int, int], np.uint8]):
             elif item != 1:
                 should_count = True
     return found
-
 
 
 class Garden:
@@ -52,7 +49,7 @@ class GardenExplorer:
         w, h = self.garden.size
         for y in range(h):
             for x in range(w):
-                if self.visited[y,x]:
+                if self.visited[y, x]:
                     continue
                 yield self.explore_region((x, y))
 
@@ -61,24 +58,24 @@ class GardenExplorer:
         w, h = self.garden.size
         value = self.garden.grid[y][x]
 
-        self.visited[y,x] = 1
+        self.visited[y, x] = 1
         pos_to_explore = {pos}
 
         area = 1
         perimeter = 4
 
         visited_in_session = {pos}
-        scan_line_shape=(w + 1, h + 1)
+        scan_line_shape = (w + 1, h + 1)
         vertical_lines: ndarray[tuple[int, int], np.uint8] = np.zeros(shape=scan_line_shape, dtype=np.uint8)
         horizontal_lines: ndarray[tuple[int, int], np.uint8] = np.zeros(shape=scan_line_shape, dtype=np.uint8)
 
         min_x, max_x = x, x
         min_y, max_y = y, y
 
-        vertical_lines[x,y] = 1
-        vertical_lines[x+1,y] = 1
-        horizontal_lines[x,y] = 1
-        horizontal_lines[x,y+1] = 1
+        vertical_lines[x, y] = 1
+        vertical_lines[x + 1, y] = 1
+        horizontal_lines[x, y] = 1
+        horizontal_lines[x, y + 1] = 1
 
         while len(pos_to_explore) > 0:
             next_pos_set = set()
@@ -89,20 +86,20 @@ class GardenExplorer:
                     if next_value != value:
                         continue
                     x, y = next_pos
-                    if self.visited[y,x]:
+                    if self.visited[y, x]:
                         perimeter -= 1
                         continue
                     # not visited
-                    self.visited[y,x] = True
+                    self.visited[y, x] = True
                     next_pos_set.add(next_pos)
                     visited_in_session.add(next_pos)
                     perimeter += 3
                     area += 1
 
-                    vertical_lines[x,y] += 1
-                    vertical_lines[x+1,y] += 1
-                    horizontal_lines[x,y] += 1
-                    horizontal_lines[x,y+1] += 1
+                    vertical_lines[x, y] += 1
+                    vertical_lines[x + 1, y] += 1
+                    horizontal_lines[x, y] += 1
+                    horizontal_lines[x, y + 1] += 1
                     min_x, min_y = min(min_x, x), min(min_y, y)
                     max_x, max_y = max(max_x, x), max(max_y, y)
             pos_to_explore = next_pos_set
