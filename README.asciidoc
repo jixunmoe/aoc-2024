@@ -50,7 +50,7 @@ Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 .3+.^|🎄
 
 | link:aoc-2024/day-06/README.MD[Day 6 ✨]
-| link:aoc-2024/day-13/README.MD[Day 13 🚧]
+| link:aoc-2024/day-13/README.MD[Day 13 ✨]
 | link:aoc-2024/day-20/README.MD[Day 20 🚧]
 
 | link:aoc-2024/day-07/README.MD[Day 7 ✨]
