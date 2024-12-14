@@ -1,6 +1,8 @@
 import argparse
-import math
 import re
+
+COST_A = 3
+COST_B = 1
 
 
 def parse(text: str):
@@ -26,6 +28,10 @@ def parse(text: str):
     return result
 
 
+def is_valid_count(count: float):
+    return count.is_integer() and count >= 0
+
+
 def try_solve(entry, offset):
     (x1, y1), (x2, y2), (xp, yp) = entry
 
@@ -33,11 +39,11 @@ def try_solve(entry, offset):
     yp += offset
 
     b = (y1 * xp - x1 * yp) / (x2 * y1 - x1 * y2)
-    if b.is_integer():
-        a = (xp - b * x2) / x1
-        if a.is_integer():
-            return entry, int(a), int(b)
+    a = (xp - b * x2) / x1
+    if is_valid_count(a) and is_valid_count(b):
+        return int(a), int(b)
     return None
+
 
 def solve(input_path, verbose):
     with open(input_path, "r", encoding='utf-8') as file:
@@ -46,12 +52,10 @@ def solve(input_path, verbose):
     data = parse(input_text)
 
     answers = []
-    price_a = 3
-    price_b = 1
     for offset in (0, 10000000000000):
         answer = 0
-        for (q, a, b) in filter(bool, map(lambda x: try_solve(x, offset), data)):
-            answer += a * price_a + b * price_b
+        for (a, b) in filter(bool, map(lambda x: try_solve(x, offset), data)):
+            answer += a * COST_A + b * COST_B
         answers.append(answer)
     p1, p2 = answers
     print(f"p1: {p1}")
