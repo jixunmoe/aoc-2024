@@ -4,6 +4,21 @@
 
 <!-- article begin -->
 
+## Part 1
+
+- Explore maze, calculate the cost of each path
+- Find the cost of the shortest path
+
+## Part 2
+
+- Change cost model from the actual cost to turns.
+- If we are walking straight, we are allowed to exceed the minimum cost at the tile by 1.
+- Less aggressive to trim.
+
+Questions:
+
+- How to trim the path better? The path right now seems too greedy.
+
 <!-- article end -->
 
 ---
