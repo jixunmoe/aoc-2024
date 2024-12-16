@@ -1,5 +1,5 @@
 import argparse
-from typing import Any
+import matplotlib.pyplot as plt
 
 import numpy as np
 from numpy import ndarray, dtype
@@ -155,7 +155,14 @@ def solve_maze(grid: MazeGrid):
         else:
             paths = new_paths
 
-    return list(filter(lambda pp: pp.cost == min_goal_cost, goal_paths))
+    best_paths = list(filter(lambda pp: pp.cost == min_goal_cost, goal_paths))
+
+    if len(best_paths) > 0:
+        cost_map_visual = cost_map.transpose().clip(min=0, max=best_paths[0].turns + 1)
+        plt.imshow(cost_map_visual, cmap='hot', interpolation='none')
+        plt.savefig('maze_cost.png')
+
+    return best_paths
 
 
 def solve(input_path, verbose, grid_size):
