@@ -6,18 +6,15 @@
 
 ## Part 1
 
-- Explore maze, calculate the cost of each path
+- Explore maze, calculate the cost of each path (BFS)
 - Find the cost of the shortest path
 
 ## Part 2
 
-- Change cost model from the actual cost to turns.
-- If we are walking straight, we are allowed to exceed the minimum cost at the tile by 1.
-- Less aggressive to trim.
+- BFS does not seem to be optimal finding all paths, unless proper caching can be done.
+- Hence, using Dijkstra's algorithm to build a graph and then backtrack all best paths.
 
-Questions:
-
-- How to trim the path better? The path right now seems too greedy.
+Optimisation inspired from [scorixear's solution](https://github.com/scorixear/AdventOfCode/blob/5302069/2024/16/dijkstra2.py).
 
 <!-- article end -->
 

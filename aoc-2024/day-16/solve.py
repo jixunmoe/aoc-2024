@@ -1,5 +1,4 @@
 import argparse
-import matplotlib.pyplot as plt
 
 import numpy as np
 from numpy import ndarray, dtype
@@ -59,127 +58,55 @@ class MazeGrid:
         self.grid = board
 
 
-class MazePath:
-    x: int
-    y: int
-    direction: int
-    grid: MazeGrid
-    events: list[int]
-    cost: int
-    locations: list[tuple[int, int]]
-    turns: int
+def solve_maze(grid: MazeGrid):
+    previous = {}
+    costs = {}
 
-    def __init__(self, grid: MazeGrid, x=0, y=0, direction=DIR_E, events=None, cost=0, locations=None, turns=0):
-        self.direction = direction
-        self.grid = grid
-        self.x = x
-        self.y = y
-        self.events = [] if events is None else events.copy()
-        self.locations = [(x, y)] if locations is None else locations.copy()
-        self.cost = cost
-        self.turns = turns
-
-    def add_event(self, event: int):
-        self.events.append(event)
-        self.cost += POINT_MAPPING[event]
-        if event != MOVE_FORWARD:
-            self.turns += 1
-
-    def clone(self):
-        return MazePath(self.grid, self.x, self.y, self.direction, self.events, self.cost, self.locations, self.turns)
-
-    def get_cost(self):
-        return self.cost
-
-    def at_goal(self):
-        return (self.x, self.y) == self.grid.end
-
-    def explore_move(self):
-        for (next_dir, (dx, dy)) in enumerate(DELTAS):
-            x, y = self.x + dx, self.y + dy
-            if self.grid.grid[x, y] == WALL or (x, y) in self.locations:
+    work = [(0, *grid.start, DIR_E)]
+    while work:
+        cost, cx, cy, direction = work.pop(0)
+        node = cx, cy, direction
+        dx, dy = DELTAS[direction]
+        for x, y, n_dir, n_cost in (cx + dx, cy + dy, direction, cost + 1), \
+                (cx, cy, dir_rotate_right(direction), cost + 1000), \
+                (cx, cy, dir_rotate_left(direction), cost + 1000):
+            if grid.grid[x, y] == WALL:
                 continue
 
-            # Try to explore this direction
-            p = self.clone()
-            turned = p.direction != next_dir
-            if turned:
-                dir_delta = (next_dir - p.direction) % 4
-                if dir_delta == 2:
-                    p.add_event(EVT_TURN_RIGHT)
-                    p.add_event(EVT_TURN_RIGHT)
-                elif dir_delta == 1:
-                    p.add_event(EVT_TURN_RIGHT)
-                else:
-                    p.add_event(EVT_TURN_LEFT)
-                p.direction = next_dir
-            p.add_event(MOVE_FORWARD)
-            p.locations.append((x, y))
-            p.x = x
-            p.y = y
-            yield p, turned
+            key = (x, y, n_dir)
+            if key not in costs or n_cost < costs[key]:
+                costs[key] = n_cost
+                previous[key] = [node]
+                work.append((n_cost, x, y, n_dir))
+            elif n_cost == costs[key]:
+                previous[key].append(node)
 
+    ex, ey = grid.end
 
-def solve_maze(grid: MazeGrid):
-    xs, ys = grid.start
-    w, h = grid.size
+    # Find a list of keys from costs that are at the end
+    work = [k for k in [(ex, ey, d) for d in range(4)] if k in costs]
+    min_cost = min(costs[k] for k in work)  # take minimum cost
+    work = [k for k in work if costs[k] == min_cost]  # filter out non-optimal cost ones
 
-    max_cost = 200000
-    cost_map: ndarray[tuple[int, int], dtype[np.int64]] = np.zeros((w, h), dtype=np.int64)
-    cost_map.fill(max_cost)
-
-    min_goal_cost = max_cost
-    goal_paths = []
-    goal_found = False
-    paths = [MazePath(grid, xs, ys, DIR_E)]
-    while len(paths) > 0:
-        new_paths = []
-        for path in paths:
-            for p, turned in path.explore_move():
-                x, y = p.x, p.y
-                real_cost = p.turns
-                # if real_cost <= cost_map[x, y]:
-                if real_cost - cost_map[x, y] <= (0 if turned else 1):
-                # if real_cost - cost_map[x, y] <= 1:
-                    cost_map[x, y] = min(cost_map[x, y], real_cost)
-                    if p.at_goal():
-                        min_goal_cost = min(min_goal_cost, p.cost)
-                        goal_paths.append(p)
-                        if not goal_found:
-                            print(f'goal path found with initial cost: {p.cost}')
-                        goal_found = True
-                    else:
-                        new_paths.append(p)
-        if goal_found:
-            paths = [p for p in new_paths if p.cost <= min_goal_cost]
-        else:
-            paths = new_paths
-
-    best_paths = list(filter(lambda pp: pp.cost == min_goal_cost, goal_paths))
-
-    if len(best_paths) > 0:
-        cost_map_visual = cost_map.transpose().clip(min=0, max=best_paths[0].turns + 1)
-        plt.imshow(cost_map_visual, cmap='hot', interpolation='none')
-        plt.savefig('maze_cost.png')
-
-    return best_paths
+    nodes = {grid.start, grid.end}
+    while work:
+        x, y, d = work.pop(0)
+        key = (x, y, d)
+        work.extend(previous[key])
+        previous[key] = []  # Don't bother with this node again
+        nodes = nodes.union({(x, y)})
+    seats = len(nodes)
+    return min_cost, seats
 
 
 def solve(input_path, verbose, grid_size):
     with open(input_path, "r", encoding='utf-8') as file:
         input_text = file.read().strip().replace('\r', '')
     maze = MazeGrid(input_text)
-    # print(maze.grid)
-    goal_paths = solve_maze(maze)
-    assert len(goal_paths) > 0, "No solution found"
+    p1, p2 = solve_maze(maze)
+    print("p1:", p1)
+    print("p2:", p2)
 
-    print(f'p1: {goal_paths[0].get_cost()}')
-
-    total_loc = {maze.start, maze.end}
-    for p in goal_paths:
-        # print(f'l: {len(p.locations)} / t={p.turns}')
-        total_loc = total_loc.union(p.locations)
-    print(f'p2: {len(total_loc)}')
 
 def main():
     parser = argparse.ArgumentParser()
