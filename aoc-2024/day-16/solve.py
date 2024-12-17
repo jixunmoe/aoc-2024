@@ -65,7 +65,7 @@ def solve_maze(grid: MazeGrid):
     work = [(0, *grid.start, DIR_E)]
     while work:
         cost, cx, cy, direction = work.pop(0)
-        node = cx, cy, direction
+        curr_node = cx, cy, direction
         dx, dy = DELTAS[direction]
         for x, y, n_dir, n_cost in (cx + dx, cy + dy, direction, cost + 1), \
                 (cx, cy, dir_rotate_right(direction), cost + 1000), \
@@ -73,13 +73,13 @@ def solve_maze(grid: MazeGrid):
             if grid.grid[x, y] == WALL:
                 continue
 
-            key = (x, y, n_dir)
-            if key not in costs or n_cost < costs[key]:
-                costs[key] = n_cost
-                previous[key] = [node]
+            next_node = (x, y, n_dir)
+            if next_node not in costs or n_cost < costs[next_node]:
+                costs[next_node] = n_cost
+                previous[next_node] = [curr_node]
                 work.append((n_cost, x, y, n_dir))
-            elif n_cost == costs[key]:
-                previous[key].append(node)
+            elif n_cost == costs[next_node]:
+                previous[next_node].append(curr_node)
 
     ex, ey = grid.end
 
@@ -91,9 +91,9 @@ def solve_maze(grid: MazeGrid):
     nodes = {grid.start, grid.end}
     while work:
         x, y, d = work.pop(0)
-        key = (x, y, d)
-        work.extend(previous[key])
-        previous[key] = []  # Don't bother with this node again
+        next_node = (x, y, d)
+        work.extend(previous[next_node])
+        previous[next_node] = []  # Don't bother with this node again
         nodes = nodes.union({(x, y)})
     seats = len(nodes)
     return min_cost, seats
