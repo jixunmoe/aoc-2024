@@ -32,13 +32,6 @@ Performance improvement:
 
 I have a feeling this might be dynamic programming problem, but I'm not good at it.
 
-To compile and run the C++ solution using `g++`:
-
-```shell
-g++ -O2 -o solve.exe solve.cpp
-./solve.exe input.txt
-```
-
 <!-- article end -->
 
 ---

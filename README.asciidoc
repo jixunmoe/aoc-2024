@@ -2,6 +2,30 @@
 
 Solutions for the https://adventofcode.com/[Advent of Code] puzzles.
 
+== Build and Running solutions
+
+For Python solutions, run the following commands:
+
+[source,sh]
+----
+python solve.py input.txt
+----
+
+For C++ solutions, run the following commands:
+
+[source,sh]
+----
+g++ -O2 -o solve.exe solve.cpp
+./solve.exe input.txt
+----
+
+For Rust solutions, run the following commands:
+
+[source,sh]
+----
+cargo run --release --bin solve -- input.txt
+----
+
 == Contents
 
 .Legends
