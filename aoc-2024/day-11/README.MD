@@ -1,6 +1,6 @@
 # Day 11: Plutonian Pebbles
 
-[[^ up]](../../README.asciidoc) [[< prev]](../day-10/README.MD) [[next >]](../day-12/README.MD) [[solution ✨]](./solve.py)  [[c++ solution 🚀]](./solve.cpp)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-10/README.MD) [[next >]](../day-12/README.MD) [[solution ✨]](./solve.py) [[c++ solution 🚀]](./solve.cpp)
 
 <!-- article begin -->
 
