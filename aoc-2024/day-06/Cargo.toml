@@ -3,4 +3,8 @@ name = "day-06"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "solve"
+path = "solve.rs"
+
 [dependencies]

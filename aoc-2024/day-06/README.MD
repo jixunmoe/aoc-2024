@@ -1,6 +1,6 @@
 # Day 6: Guard Gallivant
 
-[[^ up]](../../README.asciidoc) [[< prev]](../day-05/README.MD) [[next >]](../day-07/README.MD) [[solution ✨]](./solve.py) [[solution 🦀]](./src/main.rs)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-05/README.MD) [[next >]](../day-07/README.MD) [[solution ✨]](./solve.py) [[solution 🦀]](solve.rs)
 
 <!-- article begin -->
 

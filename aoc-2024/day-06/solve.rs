@@ -175,7 +175,8 @@ impl Game {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let input_file = args.get(1).unwrap_or("sample.txt".into());
+    let default_input = "sample.txt".to_string();
+    let input_file = args.get(1).unwrap_or(&default_input);
 
     let input = fs::read_to_string(input_file).expect("Cannot read input file");
     let mut game = Game::new();
