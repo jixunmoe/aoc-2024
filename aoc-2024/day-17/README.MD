@@ -1,6 +1,6 @@
 # Day 17: Chronospatial Computer
 
-[[^ up]](../../README.asciidoc) [[< prev]](../day-16/README.MD) [[next >]](../day-18/README.MD) [[solution ✨]](./solve.py)
+[[^ up]](../../README.asciidoc) [[< prev]](../day-16/README.MD) [[next >]](../day-18/README.MD) [[solution ✨]](./solve.py) [[c++ solution 🚀]](./solve.cpp)
 
 <!-- article begin -->
 
@@ -9,6 +9,9 @@
 Create a disassembler / interpreter for the puzzle, then simulate the program execution.
 
 ## Part 2
+
+> [!NOTE]
+> Part 2 solution is only available in C++.
 
 For determined output, find out the input.
 
