@@ -11,9 +11,6 @@
 #include <unordered_set>
 #include <vector>
 
-// Change this to print more logs
-constexpr bool kIsVerbose = false;
-
 uint64_t pack(const uint8_t shifts, const uint64_t value) {
     return shifts | value << 8;
 }
@@ -106,31 +103,48 @@ namespace Jixun::AoC2024D17::Simulation {
     }
 }
 
-std::unordered_set<uint64_t> reverse_search(const std::span<uint8_t> program, const uint64_t lookup_value,
-                                            const uint64_t octal_digits) {
+std::unordered_set<uint64_t> reverse_search(const std::span<uint8_t> program, const uint64_t target_output,
+                                            const uint64_t target_bit_count) {
     using Jixun::AoC2024D17::Simulation::run;
+    using Jixun::AoC2024D17::Simulation::run_ex;
+    std::unordered_set<uint64_t> results{};
 
-    std::deque<uint64_t> work{}; // value, window_shifts
+    // Brute force as the target is too low.
+    if (target_bit_count <= 6) {
+        uint8_t early_bits;
+        uint64_t early_output;
+        for (uint64_t i = 0; i <= 077; i++) {
+            unpack(run_ex(program, i), early_bits, early_output);
+            if (early_output == target_output && early_bits == target_bit_count) {
+                results.insert(i);
+            }
+        }
+        return results;
+    }
+
+    // value, window_shifts
+    std::deque<uint64_t> work{};
+
+    // Adding all possible base inputs
     for (uint64_t i = 0; i < 077; i++) {
         work.emplace_back(pack(0, i));
     }
 
-    uint8_t window_shifts{};
-    uint64_t test_input{};
     std::unordered_set<uint64_t> visited{};
-    const uint64_t expected_wnd_shifts = (octal_digits - 2) * 3;
+    const uint64_t expected_wnd_shifts = (target_bit_count / 3 - 2) * 3;
 
-    std::unordered_set<uint64_t> results{};
+    uint8_t window_shifts;
+    uint64_t test_input;
     for (; !work.empty(); work.pop_front()) {
-        auto work_key = work.front();
-        unpack(work_key, window_shifts, test_input);
-        if (visited.contains(work_key)) {
+        auto compact_input = work.front();
+        unpack(compact_input, window_shifts, test_input);
+        if (visited.contains(compact_input)) {
             continue;
         }
-        visited.insert(work_key);
+        visited.insert(compact_input);
 
         const auto test_input_base = test_input >> window_shifts;
-        const auto expected_digit = static_cast<uint8_t>((lookup_value >> window_shifts) % 8);
+        const auto expected_digit = static_cast<uint8_t>((target_output >> window_shifts) % 8);
 
 #ifndef NDEBUG
         {
@@ -140,18 +154,24 @@ std::unordered_set<uint64_t> reverse_search(const std::span<uint8_t> program, co
         }
 #endif
 
-        // not sure why 8 does not work, but 16 works...
-        for (uint64_t prefix = 0; prefix < 16; ++prefix) {
-            // auto result = run_prog(test_window);
-            const auto actual_digit = static_cast<uint8_t>(run(program, (prefix << 6) | test_input_base) & 7);
+        // 6-bit + 4-bit search window (0..16)
+        for (uint64_t i = 0; i < 16; ++i) {
+            const uint64_t prefix = i << 6;
+            const auto output = run(program, prefix | test_input_base);
+
+            // ReSharper disable once CppTooWideScopeInitStatement
+            const auto actual_digit = static_cast<uint8_t>(output & 7);
 
             if (expected_digit != actual_digit) {
                 continue;
             }
 
-            auto real_input = ((prefix << 6) << window_shifts) | test_input;
+            auto real_input = (prefix << window_shifts) | test_input;
             if (window_shifts == expected_wnd_shifts) {
-                if (lookup_value == run(program, real_input)) {
+                uint8_t actual_bits;
+                uint64_t actual_output;
+                unpack(run_ex(program, real_input), actual_bits, actual_output);
+                if (target_output == actual_output && actual_bits == target_bit_count) {
                     results.insert(real_input);
                 }
             } else if (window_shifts < expected_wnd_shifts) {
@@ -198,8 +218,11 @@ int main(const int argc, char **argv) {
         uint8_t bits;
         uint64_t p1_result;
         unpack(run_ex(program, numbers[0], numbers[1], numbers[2]), bits, p1_result);
+
+#ifndef NDEBUG
         std::cout << "simulation: 0o" << std::setfill('0') << std::setw(bits / 3) << std::oct << numbers[0] << " -> 0o"
                 << std::setfill('0') << std::setw(bits / 3) << std::oct << p1_result << std::endl;
+#endif
 
         char comma = ' ';
         printf("p1:");
@@ -225,10 +248,14 @@ int main(const int argc, char **argv) {
                 << expected_value << std::endl;
 #endif
 
-        if (auto r = reverse_search(program, expected_value, expected_bits / 3); !r.empty()) {
+        if (auto r = reverse_search(program, expected_value, expected_bits); !r.empty()) {
             auto sorted_results = std::vector(r.cbegin(), r.cend());
             std::ranges::sort(sorted_results);
-            std::cout << "p2: " << sorted_results[0] << std::endl;
+            std::cout << "p2: " << std::dec << sorted_results[0]
+#ifndef NDEBUG
+                    << " (total " << sorted_results.size() << " results)"
+#endif
+                    << std::endl;
         } else {
             std::cout << "p2: no solution found!" << std::endl;
         }
