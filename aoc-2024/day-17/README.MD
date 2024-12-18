@@ -54,12 +54,12 @@ void run(int A, int B, int C) {
 There's no one way function to reverse this as the function is not injective.
 However, we can attack and conquer the problem by looking at 3 bits at a time.
 
-To produce the first output (3 bits), it depends on values of lowest 10 bits
-(mod 8 produces 3 bits, plus up to 7 bits from shift right),
-we can find a list of numbers that produces the last 3 bits.
+To produce the first output (3 bits), it depends on the lowest 10 bits of A
+(up to 7 bits shifted + 3 bits from A),
+we can search for all 10-bit numbers that produces the last 3 bits.
 
-We can then remove the last 3 bits from input, and repeat the process until
-we have generated the same number of bits (round up to nearest multiple of 3).
+Once we got a 3-bits number confirmed, we move the 10-bits search window
+left by 3 bits, and repeat the process until all input bits were processed.
 
 Once the search completes, we should have a set of numbers found.
 Sort the list of numbers, the lowest one is the answer to part 2.
