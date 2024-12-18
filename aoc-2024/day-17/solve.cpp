@@ -203,7 +203,7 @@ int main(const int argc, char **argv) {
 
         char comma = ' ';
         printf("p1:");
-        while (p1_result) {
+        for (uint8_t i = 0; i < bits; i += 3) {
             printf("%c%o", comma, static_cast<int>(p1_result % 8));
             p1_result >>= 3;
             comma = ',';
