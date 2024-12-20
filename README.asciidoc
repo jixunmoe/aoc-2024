@@ -75,7 +75,7 @@ cargo run --release --bin solve -- input.txt
 
 | link:aoc-2024/day-06/README.MD[Day 6 ✨]
 | link:aoc-2024/day-13/README.MD[Day 13 ✨]
-| link:aoc-2024/day-20/README.MD[Day 20 🚧]
+| link:aoc-2024/day-20/README.MD[Day 20 ✨]
 
 | link:aoc-2024/day-07/README.MD[Day 7 ✨]
 | link:aoc-2024/day-14/README.MD[Day 14 ✨]
