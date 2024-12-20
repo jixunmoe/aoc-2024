@@ -72,10 +72,36 @@ def dijkstra(grid: Grid, start: Cord, /, size: Size = None) -> tuple[DijkstraNod
 
 
 def iter_cross(n: int):
-    for x in range(-n, n + 1):
-        y_start = abs(x) - n
-        for y in range(y_start, 1 - y_start):
+    """
+    Only scan in this pattern (where x is)
+    ...o...
+    ..oop..
+    .ooooo.
+    oooCxxx
+    .xxxxx.
+    ..xxx..
+    ...x...
+    """
+
+    # y is 0
+    for x in range(1, n + 1):
+        yield x, 0
+
+    # Other cases:
+    for y in range(1, n + 1):
+        # when n = 3:
+        # y  x
+        # 1  [-2, 2]
+        # 2  [-1, 1]
+        # 3  [0]
+        for x in range(y - n, n - y + 1):
             yield x, y
+
+
+def calc_steps_saved(cost_start: int, steps_taken: int, cost_end: int) -> int:
+    if cost_start > cost_end:
+        cost_end, cost_start = cost_start, cost_end
+    return cost_end - (cost_start + steps_taken)
 
 
 def solve_ex(grid: Grid, costs: DijkstraCosts, /, verbose: bool, threshold: int, time: int) -> tuple[int, Counter]:
@@ -89,7 +115,7 @@ def solve_ex(grid: Grid, costs: DijkstraCosts, /, verbose: bool, threshold: int,
             if c == WALL: continue
 
             p0 = (x, y)
-            start_cost = costs[p0]
+            cost_start = costs[p0]
             for (dx, dy) in iter_cross(time):
                 x1 = x + dx
                 y1 = y + dy
@@ -98,7 +124,7 @@ def solve_ex(grid: Grid, costs: DijkstraCosts, /, verbose: bool, threshold: int,
                 if not (0 <= x1 < w and 0 <= y1 < h) or grid[y1][x1] == WALL:
                     continue
                 steps_taken = abs(dx) + abs(dy)
-                steps_saved = costs[p1] - (start_cost + steps_taken)
+                steps_saved = calc_steps_saved(cost_start, steps_taken, costs[p1])
                 if steps_saved >= threshold:
                     good += 1
                     counter[steps_saved] += 1
