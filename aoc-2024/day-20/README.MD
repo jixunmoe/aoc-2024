@@ -1,4 +1,4 @@
-# Day 20: TBD
+# Day 20: Race Condition
 
 [[^ up]](../../README.asciidoc) [[< prev]](../day-19/README.MD) [[next >]](../day-21/README.MD) [[solution ✨]](./solve.py)
 
