@@ -1,6 +1,4 @@
 import argparse
-from collections import Counter
-from operator import itemgetter
 
 EMPTY = ord(' ')
 WALL = ord('#')
@@ -34,10 +32,6 @@ def parse_grid(input_text: str) -> tuple[Grid, Cord, Cord, Size]:
         grid.append(row)
     size = len(grid[0]), len(grid)
     return grid, start, end, size
-
-
-def add_cord(a: Cord, b: Cord) -> Cord:
-    return a[0] + b[0], a[1] + b[1]
 
 
 def dijkstra(grid: Grid, start: Cord, /, size: Size = None) -> tuple[DijkstraNodes, DijkstraCosts]:
@@ -98,38 +92,37 @@ def iter_cross(n: int):
             yield x, y
 
 
-def calc_steps_saved(cost_start: int, steps_taken: int, cost_end: int) -> int:
+def calc_steps_saved(steps: int, cost_start: int, cost_end: int) -> int:
+    """
+    Always go from low cost point to high cost point
+    """
     if cost_start > cost_end:
-        cost_end, cost_start = cost_start, cost_end
-    return cost_end - (cost_start + steps_taken)
+        return cost_start - (cost_end + steps)
+    else:
+        return cost_end - (cost_start + steps)
 
 
-def solve_ex(grid: Grid, costs: DijkstraCosts, /, verbose: bool, threshold: int, time: int) -> tuple[int, Counter]:
-    w, h = len(grid[0]), len(grid)
+def solve_ex(grid: Grid, costs: DijkstraCosts, /, verbose: bool, threshold: int, time: int) -> int:
     print(f'solve for {time=} {threshold=}')
-    counter = Counter()
     good = 0
 
+    search_window = set(iter_cross(time))
     for y, row in enumerate(grid):
         for x, c in enumerate(row):
             if c == WALL: continue
 
-            p0 = (x, y)
-            cost_start = costs[p0]
-            for (dx, dy) in iter_cross(time):
-                x1 = x + dx
-                y1 = y + dy
-                p1 = (x1, y1)
+            # Find 2 free space within the search window
+            cost_start = costs[x, y]
+            for (dx, dy) in search_window:
+                if (cost_exit := costs.get((x + dx, y + dy), None)) is not None:
+                    steps = abs(dx) + abs(dy)
 
-                if not (0 <= x1 < w and 0 <= y1 < h) or grid[y1][x1] == WALL:
-                    continue
-                steps_taken = abs(dx) + abs(dy)
-                steps_saved = calc_steps_saved(cost_start, steps_taken, costs[p1])
-                if steps_saved >= threshold:
-                    good += 1
-                    counter[steps_saved] += 1
+                    # Check if we actually make some "good" savings
+                    steps_saved = calc_steps_saved(steps, cost_start, cost_exit)
+                    if steps_saved >= threshold:
+                        good += 1
 
-    return good, counter
+    return good
 
 
 def solve(input_path, verbose, p2_threshold):
@@ -140,12 +133,10 @@ def solve(input_path, verbose, p2_threshold):
     _, costs = dijkstra(grid, start, size=size)
     assert end in costs, f"Can't reach end {end}"
 
-    p1, c1 = solve_ex(grid, costs, verbose=verbose, threshold=100, time=2)
+    p1 = solve_ex(grid, costs, verbose=verbose, threshold=100, time=2)
     print(f'p1: {p1}')
-    verbose and print(sorted(c1.items(), key=itemgetter(0)))
-    p2, c2 = solve_ex(grid, costs, verbose=verbose, threshold=p2_threshold, time=20)
+    p2 = solve_ex(grid, costs, verbose=verbose, threshold=p2_threshold, time=20)
     print(f'p2: {p2}')
-    verbose and print(sorted(c2.items(), key=itemgetter(0)))
 
 
 def main():
