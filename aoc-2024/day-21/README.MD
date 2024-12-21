@@ -4,6 +4,23 @@
 
 <!-- article begin -->
 
+```text
+FINAL    Bot 1    Bot 2    INPUT
+.....    .....    .....    .....
+.789.    ..^A.    ..^A.    ..^A.
+.456......<v>......<v>......<v>.
+.123.    .....    .....    .....
+..0A.
+.....
+```
+
+- To press the button, we need to find:
+  - In final, how can we move from one button to another?
+    - Explore using Djikstra's algorithm.
+    - Cost will be propagated from input.
+
+Need to read about Dynamic programming to solve this. Do it later.
+
 <!-- article end -->
 
 ---
