@@ -19,6 +19,8 @@ g++ -O2 -Wall -DNDEBUG -std=c++20 -march=native -o solve.exe solve.cpp
 ./solve.exe input.txt
 ----
 
+If you are using an `aarch64` processor, repalce `-O2` with `-O3` to have auto vectorisation for better performance.
+
 For Rust solutions, run the following commands:
 
 [source,sh]
