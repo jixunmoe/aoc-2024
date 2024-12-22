@@ -8,7 +8,7 @@
 #include <sstream>
 #include <vector>
 
-#define PRINT_PATTERNS (1)
+#define PRINT_BUYER_PRICES (0)
 
 std::vector<uint32_t> extract_code(const std::string &input) {
     std::vector<uint32_t> result;
@@ -71,7 +71,7 @@ int main(const int argc, char **argv) {
     std::vector<uint32_t> sums_container(kPatternSize);
     auto* sums = sums_container.data();
 
-#if PRINT_PATTERNS
+#if PRINT_BUYER_PRICES
     std::vector<std::array<uint8_t, kPatternSize>> pattern_cache(initial_secrets.size());
     auto pattern_cache_it = pattern_cache.begin();
 #else
@@ -79,7 +79,7 @@ int main(const int argc, char **argv) {
 #endif
 
     for (const auto initial_secret : initial_secrets) {
-#if PRINT_PATTERNS
+#if PRINT_BUYER_PRICES
         auto* patterns = pattern_cache_it++->data();
 #else
         auto* patterns = pattern_cache.data();
@@ -115,14 +115,14 @@ int main(const int argc, char **argv) {
 
     printf("best is %d (pattern = %d,%d,%d,%d%s", best_score,
            best_patterns[0], best_patterns[1], best_patterns[2], best_patterns[3],
-#if PRINT_PATTERNS
+#if PRINT_BUYER_PRICES
            ", scores "
 #else
            ")\n"
 #endif
     );
 
-#if PRINT_PATTERNS
+#if PRINT_BUYER_PRICES
     char c = '=';
     for (auto &p: pattern_cache) {
         printf("%c %d", c, static_cast<uint32_t>(p[best_pattern] & 0x7f));
