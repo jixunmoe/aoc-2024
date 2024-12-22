@@ -1,6 +1,6 @@
 # Day 21: Keypad Conundrum
 
-[[^ up]](../../README.asciidoc) [[< prev]](../day-20/README.MD) [[next >]](../day-22/README.MD) <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.asciidoc) [[< prev]](../day-20/README.MD) [[next >]](../day-22/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
 
@@ -21,7 +21,7 @@ FINAL    Bot 1    Bot 2    INPUT
     - In final, how can we move from one button to another?
         - Cost will be propagated from input.
 
-Implemented like this in `solve_p1_only.py`.
+Implemented like this in [`solve_p1_only.py`](./solve_p1_only.py).
 
 ## Part 2
 
