@@ -1,8 +1,16 @@
-# Day 24: TBD
+# Day 24: Crossed Wires
 
-[[^ up]](../../README.asciidoc) [[< prev]](../day-23/README.MD) [[next >]](../day-25/README.MD) <!-- [[solution ✨]](./solve.py) -->
+[[^ up]](../../README.asciidoc) [[< prev]](../day-23/README.MD) [[next >]](../day-25/README.MD) [[solution ✨]](./solve.py)
 
 <!-- article begin -->
+
+## Part 1
+
+Build a PlugBoard simulator
+
+## Part 2
+
+Manually implement an adder, look for things that does not add up and try to fix them.
 
 <!-- article end -->
 
