@@ -29,6 +29,7 @@ def solve(input_path: str, /, verbose=False, **_kwargs):
     for lock in locks:
         for key in keys:
             if all(l + k <= 5 for l, k in zip(lock, key)):
+                verbose and print(f'{lock=} {key=}')
                 p1 += 1
     print(f'p1: {p1}')
 
